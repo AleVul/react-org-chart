@@ -3,9 +3,9 @@ const { init } = require('../chart')
 
 class OrgChart extends PureComponent {
   render() {
-    const { id } = this.props
+    const { id, style } = this.props
 
-    return createElement('div', { id })
+    return createElement('div', { id, style })
   }
 
   static defaultProps = {
@@ -18,7 +18,10 @@ class OrgChart extends PureComponent {
     resetId: 'org-chart-reset',
     disableCanvasMouseMove: false,
     disableCanvasMouseWheelZoom: false,
-    tree: {}
+    tree: {},
+    style: {
+      height: '450px',
+    },
   }
 
   componentDidMount() {

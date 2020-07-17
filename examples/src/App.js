@@ -82,6 +82,7 @@ export default class App extends React.Component {
               {downloadingChart && <div>Downloading chart</div>}
             </div>
             <OrgChart
+              style={{height: "100%"}}
               tree={tree}
               downloadPdfId={downloadPdfId}
               downloadImageId={downloadImageId}
