@@ -3,6 +3,12 @@ const { init } = require('../chart')
 
 class OrgChart extends PureComponent {
   render() {
+    const { id, style } = this.props
+
+    return createElement('div', { id, style })
+  }
+
+  componentDidMount() {
     const {
       id,
       downloadImageId,
@@ -31,8 +37,6 @@ class OrgChart extends PureComponent {
       disableCanvasMouseWheelZoom,
       ...options,
     })
-
-    return createElement('div', { id, style })
   }
 
   static defaultProps = {
