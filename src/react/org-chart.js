@@ -3,7 +3,34 @@ const { init } = require('../chart')
 
 class OrgChart extends PureComponent {
   render() {
-    const { id, style } = this.props
+    const {
+      id,
+      downloadImageId,
+      downloadPdfId,
+      zoomInId,
+      zoomOutId,
+      scaleToFitId,
+      resetId,
+      disableCanvasMouseMove,
+      disableCanvasMouseWheelZoom,
+      tree,
+      style,
+      ...options
+    } = this.props
+
+    init({
+      id: `#${id}`,
+      downloadImageId: `#${downloadImageId}`,
+      downloadPdfId: `#${downloadPdfId}`,
+      zoomInId: zoomInId,
+      zoomOutId: zoomOutId,
+      scaleToFitId: scaleToFitId,
+      resetId: resetId,
+      data: tree,
+      disableCanvasMouseMove,
+      disableCanvasMouseWheelZoom,
+      ...options,
+    })
 
     return createElement('div', { id, style })
   }
@@ -22,36 +49,6 @@ class OrgChart extends PureComponent {
     style: {
       height: '450px',
     },
-  }
-
-  componentDidMount() {
-    const {
-      id,
-      downloadImageId,
-      downloadPdfId,
-      zoomInId,
-      zoomOutId,
-      scaleToFitId,
-      resetId,
-      disableCanvasMouseMove,
-      disableCanvasMouseWheelZoom,
-      tree,
-      ...options
-    } = this.props
-
-    init({
-      id: `#${id}`,
-      downloadImageId: `#${downloadImageId}`,
-      downloadPdfId: `#${downloadPdfId}`,
-      zoomInId: zoomInId,
-      zoomOutId: zoomOutId,
-      scaleToFitId: scaleToFitId,
-      resetId: resetId,
-      data: tree,
-      disableCanvasMouseMove,
-      disableCanvasMouseWheelZoom,
-      ...options,
-    })
   }
 }
 

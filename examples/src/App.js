@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import OrgChart from '@smartprocure/react-org-chart'
+import OrgChart from '../../'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { tree } from './Tree'
 import avatarPersonnel from './assets/avatar-personnel.svg'
