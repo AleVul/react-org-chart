@@ -4,12 +4,12 @@ const { collapse } = require('../utils')
 module.exports = onClick
 
 function onClick(configOnClick) {
-  const { loadConfig } = configOnClick
+  const { loadConfig, render } = configOnClick
 
   return datum => {
     if (d3.event.defaultPrevented) return
     const config = loadConfig()
-    const { loadChildren, render, onEntityClick } = config
+    const { loadChildren, onEntityClick } = config
     event.preventDefault()
 
     if (onEntityClick) {
