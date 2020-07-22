@@ -92,14 +92,7 @@ function init(options) {
   // Add our base svg group to transform when a user zooms/pans
   const svg = svgroot
     .append('g')
-    .attr(
-      'transform',
-      'translate(' +
-        centerPoint +
-        ',' +
-        48 +
-        ')'
-    )
+    .attr('transform', 'translate(' + centerPoint + ',' + 48 + ')scale(.5,.5)')
 
   // Define box shadow and avatar border radius
   defineBoxShadow(svgroot, 'boxShadow')
@@ -133,20 +126,20 @@ function init(options) {
 
   // Disable the Mouse Wheel Zooming
   if (disableCanvasMouseWheelZoom) {
-    zoomedRoot.on("wheel.zoom", null)
+    zoomedRoot.on('wheel.zoom', null)
   }
 
   // Disable the Mouse Wheel Canvas Content Moving
   if (disableCanvasMouseMove) {
     zoomedRoot
-      .on("mousedown.zoom", null)
-      .on("touchstart.zoom", null)
-      .on("touchmove.zoom", null)
-      .on("touchend.zoom", null)
+      .on('mousedown.zoom', null)
+      .on('touchstart.zoom', null)
+      .on('touchmove.zoom', null)
+      .on('touchend.zoom', null)
   }
 
   // Define the point of origin for zoom transformations
-  zoom.translate([ centerPoint, 20 ])
+  zoom.translate([centerPoint, 20])
 
   // Zoom update
   function zoomed() {
@@ -163,10 +156,10 @@ function init(options) {
     return d3
       .transition()
       .duration(350)
-      .tween('zoom', function() {
+      .tween('zoom', function () {
         var iTranslate = d3.interpolate(zoom.translate(), translate),
           iScale = d3.interpolate(zoom.scale(), scale)
-        return function(t) {
+        return function (t) {
           zoom.scale(iScale(t)).translate(iTranslate(t))
           zoomed()
         }
@@ -176,38 +169,37 @@ function init(options) {
   // Zoom extent to fit svg on the screen
   function scaleToFit() {
     const latestConfig = loadConfig()
-      const {
-        nodeLeftX,
-        nodeRightX,
-        nodeWidth,
-        nodeY,
-        margin,
-        elemHeight,
-        elemWidth,
-      } = latestConfig
+    const {
+      nodeLeftX,
+      nodeRightX,
+      nodeWidth,
+      nodeY,
+      margin,
+      elemHeight,
+      elemWidth,
+    } = latestConfig
 
-      const centerPoint = elemWidth / 2 - nodeWidth / 2 - margin.left / 2
-      const svgWidth = nodeLeftX + nodeRightX
-      const svgHeight = nodeY + nodeHeight * 2 + 48
+    const centerPoint = elemWidth / 2 - nodeWidth / 2 - margin.left / 2
+    const svgWidth = nodeLeftX + nodeRightX
+    const svgHeight = nodeY + nodeHeight * 2 + 48
 
-      let scaleX = elemWidth / svgWidth - 0.03
-      let scaleY = elemHeight / svgHeight - 0.06
-      const chooseScale = scaleX < scaleY ? scaleX : scaleY
-      let scale =
-        svgWidth > elemWidth || svgHeight > elemHeight ? chooseScale : 1
-      let translateX = nodeLeftX * scale + nodeWidth / 2
+    let scaleX = elemWidth / svgWidth - 0.03
+    let scaleY = elemHeight / svgHeight - 0.06
+    const chooseScale = scaleX < scaleY ? scaleX : scaleY
+    let scale = svgWidth > elemWidth || svgHeight > elemHeight ? chooseScale : 1
+    let translateX = nodeLeftX * scale + nodeWidth / 2
 
-      if (svgWidth > elemWidth || svgHeight > elemHeight) {
-        //If width is more than height
-        if (scaleX < scaleY) {
-          interpolateZoom([translateX, 48], scale)
-          //If height is more than width
-        } else if (scaleX > scaleY) {
-          interpolateZoom([centerPoint, 48], scale)
-        }
-      } else {
+    if (svgWidth > elemWidth || svgHeight > elemHeight) {
+      //If width is more than height
+      if (scaleX < scaleY) {
+        interpolateZoom([translateX, 48], scale)
+        //If height is more than width
+      } else if (scaleX > scaleY) {
         interpolateZoom([centerPoint, 48], scale)
       }
+    } else {
+      interpolateZoom([centerPoint, 48], scale)
+    }
   }
 
   function reset() {

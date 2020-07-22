@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import OrgChart from '../../'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { tree } from './Tree'
+import { tree, otherTree } from './Tree'
 import avatarPersonnel from './assets/avatar-personnel.svg'
 
 export default class App extends React.Component {
@@ -10,7 +10,7 @@ export default class App extends React.Component {
     super(props)
 
     this.state = {
-      tree: tree,
+      tree: otherTree,
       downloadingChart: false,
       config: {},
     }
