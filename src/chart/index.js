@@ -9,7 +9,14 @@ module.exports = {
   init,
 }
 
-function init(options) {
+const defaultInitialScale = [0.7, 0.7]
+const defaultInitialScaleExtent = [0.1, 1.5]
+
+function init({
+  initialScale = defaultInitialScale,
+  initialScaleExtent = defaultInitialScaleExtent,
+  ...options
+}) {
   // Merge options with the default config
   const config = {
     ...defaultConfig,
@@ -92,7 +99,12 @@ function init(options) {
   // Add our base svg group to transform when a user zooms/pans
   const svg = svgroot
     .append('g')
-    .attr('transform', 'translate(' + centerPoint + ',' + 48 + ')scale(.5,.5)')
+    .attr(
+      'transform',
+      `translate(${centerPoint},${48})scale(${initialScale[0]},${
+        initialScale[1]
+      })`
+    )
 
   // Define box shadow and avatar border radius
   defineBoxShadow(svgroot, 'boxShadow')
@@ -118,7 +130,7 @@ function init(options) {
   // Defined zoom behavior
   var zoom = d3.behavior
     .zoom()
-    .scaleExtent([0.1, 1.5])
+    .scaleExtent(initialScaleExtent)
     .duration(50)
     .on('zoom', zoomed)
 
