@@ -263,9 +263,11 @@ function render(config) {
       svg.selectAll(`text.unedited.${cls}`).call(
         wrapText,
         nodeWidth - 12, // Adjust with some padding
-        cls === ENTITY_NAME_CLASS
-          ? 3 // name should wrap at 3 lines max
-          : 1, // all others have 1 line to work with
+        // this defines max number of lines the text should wrap.
+        3,
+        // cls === ENTITY_NAME_CLASS
+        //   ? 3 // name should wrap at 3 lines max
+        //   : 1, // all others have 1 line to work with
         max
       )
     })
